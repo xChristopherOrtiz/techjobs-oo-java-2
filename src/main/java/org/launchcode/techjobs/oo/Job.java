@@ -19,6 +19,7 @@ public class Job {
     public Job() {
         id = nextId;
         nextId++;
+        name = ""; // Initialize name with an empty string
     }
 
     public Job(String name, Employer employer, Location location, PositionType positionType, CoreCompetency coreCompetency) {
@@ -43,6 +44,24 @@ public class Job {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "%nID: %d%n" +
+                        "Name: %s%n" +
+                        "Employer: %s%n" +
+                        "Location: %s%n" +
+                        "Position Type: %s%n" +
+                        "Core Competency: %s%n",
+                getId(),
+                getName().isEmpty() ? "Data not available" : getName(),
+                getEmployer() == null || getEmployer().getValue().isEmpty() ? "Data not available" : getEmployer().getValue(),
+                getLocation() == null || getLocation().getValue().isEmpty() ? "Data not available" : getLocation().getValue(),
+                getPositionType() == null || getPositionType().getValue().isEmpty() ? "Data not available" : getPositionType().getValue(),
+                getCoreCompetency() == null || getCoreCompetency().getValue().isEmpty() ? "Data not available" : getCoreCompetency().getValue()
+        );
     }
 
     // TODO: Add getters for each field EXCEPT nextId. Add setters for each field EXCEPT nextID

@@ -1,9 +1,48 @@
 package org.launchcode.techjobs.oo;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 public class JobTest {
     //TODO: Create your unit tests here
+
+    @Test
+    public void testToStringStartsAndEndsWithNewLine() {
+
+        Job job = new Job();
+
+        String jobString = job.toString();
+
+        // Check that the string starts and ends with a new line
+        assertTrue(jobString.startsWith(System.lineSeparator()));
+        assertTrue(jobString.endsWith(System.lineSeparator()));
+    }
+
+    @Test
+    public void testToStringContainsCorrectLabelsAndData() {
+        Job job = new Job("Product tester", new Employer("ACME"), new Location("Desert"),
+                new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        String jobString = job.toString();
+        assertTrue(jobString.contains("ID:"));
+        assertTrue(jobString.contains("Name: Product tester"));
+        assertTrue(jobString.contains("Employer: ACME"));
+        assertTrue(jobString.contains("Location: Desert"));
+        assertTrue(jobString.contains("Position Type: Quality control"));
+        assertTrue(jobString.contains("Core Competency: Persistence"));
+    }
+
+    @Test
+    public void testToStringHandlesEmptyField() {
+        Job job = new Job("", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
+        String jobString = job.toString();
+        assertTrue(jobString.contains("Name: Data not available"));
+        assertTrue(jobString.contains("Employer: Data not available"));
+        assertTrue(jobString.contains("Location: Data not available"));
+        assertTrue(jobString.contains("Position Type: Data not available"));
+        assertTrue(jobString.contains("Core Competency: Data not available"));
+    }
+
     @Test
     public void testJobsForEquality() {
         // Generate two Job objects that have identical field values EXCEPT for id
